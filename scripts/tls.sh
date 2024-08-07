@@ -17,8 +17,8 @@ prompt = no
 
 [req_distinguished_name]
 C = US
-O = CISA
-OU = CFS
+O = scattered-cats
+OU = devs
 CN = $2
 
 [v3_req]
