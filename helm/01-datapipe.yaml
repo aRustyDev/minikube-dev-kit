@@ -1,0 +1,29 @@
+repositories:
+- name: memphis
+  url: https://k8s.memphis.dev/charts/
+- name: bitnami
+  url: https://charts.bitnami.com/bitnami
+- name: metabase
+  url: https://pmint93.github.io/helm-charts
+
+# Add new components here (e.g. whatever charts you want installed)
+releases:
+- name: memphis
+  namespace: datapipe
+  createNamespace: true
+  chart: memphis/memphis
+  values:
+    - ./values/memphis.yaml
+- name: spark
+  namespace: datapipe
+  createNamespace: true
+  chart: bitnami/spark
+  # version: 15.5.5
+  values:
+    - ./values/spark.yaml
+- name: metabase
+  namespace: datapipe
+  createNamespace: true
+  chart: metabase/metabase
+  values:
+    - ./values/metabase.yaml

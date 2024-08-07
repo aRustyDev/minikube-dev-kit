@@ -1,0 +1,12 @@
+repositories:
+- name: <arbitrary_name>
+  url: https://charts.example.com/charts/
+
+# Add new components here (e.g. whatever charts you want installed)
+releases:
+- name: example
+  namespace: datapipe
+  createNamespace: true # leave this just incase
+  chart: <repo_from_above>/<chart_name>
+  values:
+    - ./values/memphis.yaml
