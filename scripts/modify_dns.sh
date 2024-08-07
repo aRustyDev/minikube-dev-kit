@@ -17,11 +17,13 @@ if [ $1 == "up" ]; then
     echo "Configuring DNS to Minikube"
     cp /etc/hosts /etc/hosts.bak
     cat <<EOF >> /etc/hosts
-$(minikube ip)    pi3.mk
-$(minikube ip)    memphis.pi3.mk
-$(minikube ip)    metabase.pi3.mk
-$(minikube ip)    spark.pi3.mk
-$(minikube ip)    metadata.pi3.mk
+$(minikube ip)    $2
+$(minikube ip)    memphis.$2
+$(minikube ip)    metabase.$2
+$(minikube ip)    spark.$2
+$(minikube ip)    metadata.$2
+$(minikube ip)    passbolt.$2
+$(minikube ip)    api.passbolt.$2
 EOF
     mkdir -p /etc/resolver
     cp dns/resolvr.conf /etc/resolver/minikube

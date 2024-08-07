@@ -33,13 +33,17 @@ DNS.3 = metadata.$2
 DNS.4 = spark.$2
 DNS.5 = pgsql.db.$2
 DNS.6 = mage.$2
+DNS.7 = passbolt.$2
+DNS.8 = api.passbolt.$2
 EOF
 
     # Generate the private key
     # openssl genpkey -algorithm ED25519 > secrets/data/minikube.key
+    echo "Creating Priv Key"
     openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:2048 > secrets/data/minikube.key
 
     # Create the CSRs
+    echo "Creating CSR"
     openssl req -new -out secrets/data/minikube.csr -key secrets/data/minikube.key -config secrets/data/minikube.tls.cnf
     # openssl req -new -out secrets/data/metabase.csr -key secrets/data/metabase.key -config secrets/data/metabase.tls.cnf
     # openssl req -new -out secrets/data/metadata.csr -key secrets/data/metadata.key -config secrets/data/metadata.tls.cnf
@@ -49,16 +53,19 @@ EOF
     # openssl req -new -out secrets/data/mage.csr -key secrets/data/mage.key -config secrets/data/mage.tls.cnf
 
     # Create the certificate
+    echo "Creating Pub Key"
     openssl x509 -req -days 7 -in secrets/data/minikube.csr -signkey secrets/data/minikube.key -out secrets/data/minikube.crt
 
+    echo "Creating Kubectl Secret"
     kubectl create secret tls "minikube-tls" \
-        -n datapipe \
+        -n "$3" \
         --key=secrets/data/minikube.key \
         --cert=secrets/data/minikube.crt \
         -o yaml \
         --dry-run=client > secrets/minikube-tls.yaml
 
     # Add Cert to Keychain
+    echo "Adding Cert to Keychain"
     sudo security add-trusted-cert \
         -r trustRoot \
         -k /Library/Keychains/System.keychain \
