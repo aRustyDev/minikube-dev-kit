@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spark-ingress
+  namespace: datapipe
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: spark.pi3.mk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: spark-master-svc
+                port:
+                  number: 80
+          - path: /wut
+            pathType: Prefix
+            backend:
+              service:
+                name: spark-master-svc
+                port:
+                  number: 7077 # TODO: figure out what this is
+  tls:
+  - secretName: minikube-tls
+    hosts:
+      - spark.pi3.mk
