@@ -12,6 +12,15 @@ update: verify
 test:
 	@bash scripts/tls.sh $$DOMAIN || exit 1
 
+passbolt: verify
+	@bash scripts/modify_docker.sh up || exit 1
+	@bash scripts/setup.sh || exit 1
+	@sudo ./scripts/modify_dns.sh up $$DOMAIN || exit 1
+	@bash scripts/tls.sh up $$DOMAIN passbolt || exit 1
+	@kubectl apply -f secrets/
+	@helmfile init -f helm/passbolt/
+	@helmfile apply -f helm/passbolt/
+
 datapipe: verify
 	@bash scripts/modify_docker.sh up || exit 1
 	@bash scripts/setup.sh || exit 1

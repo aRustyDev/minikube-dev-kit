@@ -1,0 +1,12 @@
+repositories:
+- name: passbolt
+  url: https://download.passbolt.com/charts/passbolt
+
+# Add new components here (e.g. whatever charts you want installed)
+releases:
+- name: passbolt
+  namespace: passbolt
+  createNamespace: true
+  chart: passbolt/passbolt
+  values:
+    - ./values/passbolt.yaml
