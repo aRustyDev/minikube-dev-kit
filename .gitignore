@@ -1,0 +1,3 @@
+secrets/*-tls.yaml
+secrets/data/*
+!secrets/data/.gitkeep
