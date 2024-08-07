@@ -4,6 +4,9 @@
 
 - [ ] implement for virtualbox driver
 - [ ] flesh out vmware driver config options
+- [ ] Add config.json/yaml to define minikube hardware requirements for each target (datapipe, passbolt, sigstore, etc)
+- [x] Pass domain to tls.sh & modify_dns.sh
+- [ ] Add arguments to rebuild target to enable rebuilding TARGET
 
 ## Datapipe
 
@@ -20,7 +23,7 @@
 - [ ] Add CA Cert before creating TLS certs, then sign w/ it to avoid "self-signed" scenario.
 - [ ] Add CA Cert to local trust store
 - [ ] Add Cert-Manager to deployment
-- [ ] Add TEN/Common Vault access
+- [ ] Add Vault access
 - [ ] Implement Linkerd2
 - [ ] Implement Cilium
 
