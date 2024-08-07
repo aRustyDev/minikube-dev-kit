@@ -1,0 +1,5 @@
+secrets/*-tls.yaml
+secrets/data/*
+!secrets/data/.gitkeep
+tools/memphis-producer/memphis-producer
+data/*.csv

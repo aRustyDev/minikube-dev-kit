@@ -1,0 +1,62 @@
+syntax = "proto3";
+package tutorial;
+
+message Ual_log {
+    string activity_display_name = 1;
+    string additional_details = 2;
+    string app_display_name = 3;
+    string app_id = 4;
+    enum category {
+        UserManagement = 0;
+        GroupManagement = 1;
+        ApplicationManagement = 2;
+        RoleManagement = 3;
+        DirectoryManagement = 4;
+        Authentication = 5;
+        Authorization = 6;
+        PolicyManagement = 7;
+        ResourceManagement = 8;
+        Policy = 9;
+    };
+    string correlation_id = 6;
+    string id = 7;
+    string ip_address = 8;
+    string logged_by_service = 9;
+    // enum logged_by_service {
+    //     "Core Directory" = 0;
+    //     "Self-service Password Management" = 1;
+    //     "Self-service Group Management" = 2;
+    //     "Authentication Methods" = 3;
+    //     PIM = 4;
+    //     Azure AD Recommendations = 5;
+    //     B2C = 6;
+    //     Access Reviews = 7;
+    //     Conditional Access = 8;
+    //     Application Proxy = 9;
+    // };
+    enum operation_type {
+        CREATE = 0;
+        DELETE = 1;
+        ADD = 2;
+        UPDATE = 3;
+        ASSIGN = 4;
+        UNASSIGN = 5;
+        NULL = 6;
+    };
+    enum result {
+        SUCCESS = 0;
+        FAILURE = 1;
+    };
+    string result_reason = 12;
+    string service_principal_id = 13;
+    string service_principal_name = 14;
+    string target_resources = 15;
+    string tenant_id = 16;
+    string tenant_name = 17;
+    string ts = 18;
+    string user_agent = 19;
+    string user_display_name = 20;
+    string user_id = 21;
+    string user_principal_name = 22;
+    string user_type = 23;
+}
