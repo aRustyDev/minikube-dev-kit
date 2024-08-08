@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `commitlint` support for `pre-commit`
 - `commitlint.config.js` to define configuration for `commitlint`
 - CONTRIBUTING guidelines
+- CA cert creation, to sign TLS certs; still need to figure out browser trust
 
 ### Changed
 
