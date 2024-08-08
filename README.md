@@ -1,4 +1,4 @@
-# Datapipe Dev Kit
+# Minikube Dev Kit
 
 This is a development kit for the Datapipe project. It contains a set of tools and scripts to help you develop and test the Datapipe project.
 
@@ -27,6 +27,11 @@ When you have identified a new chart to call, you can add its details to the `he
 When you run `make datapipe` you will need to provide your local users password. This is because the script is trying to modify some protected files related to DNS (`/etc/hosts` and `/etc/resolv.conf`). If you are not comfortable with this, you can run the commands manually. When the script is finished it should output an index of the domains that have been created, so you can reach them on your browser.
 
 ### Passbolt
+
+1. `make passbolt`: this will setup the project for development.
+2. `make clean` : run this when you're done or want to tear the project down.
+
+### Sigstore
 
 1. `make passbolt`: this will setup the project for development.
 2. `make clean` : run this when you're done or want to tear the project down.

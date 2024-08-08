@@ -9,9 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `passbolt` target in makefile.
+- `sigstore` target in makefile.
+- `commitlint` support for `pre-commit`
+- `commitlint.config.js` to define configuration for `commitlint`
+- CONTRIBUTING guidelines
+- CA cert creation, to sign TLS certs; still need to figure out browser trust
 
-<!-- ### Changed -->
+### Changed
+
+- updated TLS cert Org & OU
+- .gitignore to ignore npm dependencies for `commitlint`
 
 <!-- ### Removed -->
 
@@ -55,7 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `datapipe` target in makefile.
 - v1.0 TLS support
 
-[unreleased]: https://github.com/aRustyDev/minikube-dev-kit/compare/v0.1.1...HEAD
-[0.2.0]: https://github.com/aRustyDev/minikube-dev-kit/compare/v0.1.0...v0.1.1
+[unreleased]: https://github.com/aRustyDev/minikube-dev-kit/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/aRustyDev/minikube-dev-kit/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/aRustyDev/minikube-dev-kit/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/aRustyDev/minikube-dev-kit/compare/v0.1.0
