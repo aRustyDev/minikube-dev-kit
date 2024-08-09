@@ -5,3 +5,5 @@ tools/memphis-producer/memphis-producer
 data/*.csv
 package-lock.json
 node_modules/
+logs/*
+!.gitkeep

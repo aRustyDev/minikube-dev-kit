@@ -1,8 +1,10 @@
 MINIKUBE_DOMAIN?=pi3.mk
+ARCH=$(if [ "${uname -m}" == "x86_64" ],"amd64","arm64")
+export ARCH
 export MINIKUBE_DOMAIN
 
 install:
-	@bash scripts/install.sh || exit 1
+	@bash scripts/install.sh $$ARCH || exit 1
 
 verify:
 	@bash scripts/verify.sh || exit 1
