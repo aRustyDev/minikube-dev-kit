@@ -15,11 +15,11 @@ update: verify
 	@bash scripts/update.sh || exit 1
 
 test:
-	@ls k8s/*/secrets/
+	@echo "target is $@, source is $<"
 
 sigstore: verify
 	@bash scripts/modify_docker.sh up || exit 1
-	@bash scripts/setup.sh || exit 1
+	@bash scripts/setup.sh $@ || exit 1
 	@sudo ./scripts/modify_dns.sh up $$MINIKUBE_DOMAIN || exit 1
 	@bash scripts/tls.sh up $$MINIKUBE_DOMAIN sigstore || exit 1
 	@kubectl apply -f secrets/
@@ -28,7 +28,7 @@ sigstore: verify
 
 jetstream: verify
 	@bash scripts/modify_docker.sh up || exit 1
-	@bash scripts/setup.sh || exit 1
+	@bash scripts/setup.sh $@ || exit 1
 	@sudo ./scripts/modify_dns.sh up $$MINIKUBE_DOMAIN || exit 1
 	@#bash scripts/tls.sh up $$MINIKUBE_DOMAIN jetstream || exit 1
 	@kubectl apply -f k8s/jetstream/namespaces/
@@ -48,7 +48,7 @@ jetstream: verify
 
 passbolt: verify
 	@bash scripts/modify_docker.sh up || exit 1
-	@bash scripts/setup.sh || exit 1
+	@bash scripts/setup.sh $@ || exit 1
 	@sudo ./scripts/modify_dns.sh up $$MINIKUBE_DOMAIN || exit 1
 	@bash scripts/tls.sh up $$MINIKUBE_DOMAIN passbolt || exit 1
 	@kubectl apply -f secrets/
@@ -57,7 +57,7 @@ passbolt: verify
 
 datapipe: verify
 	@bash scripts/modify_docker.sh up || exit 1
-	@bash scripts/setup.sh || exit 1
+	@bash scripts/setup.sh $@ || exit 1
 	@./scripts/modify_dns.sh message || exit 1
 	@sudo ./scripts/modify_dns.sh up $$MINIKUBE_DOMAIN || exit 1
 	@bash scripts/tls.sh up $$MINIKUBE_DOMAIN "datapipe" || exit 1
@@ -70,7 +70,7 @@ datapipe: verify
 
 rebuild: clean
 	@bash scripts/modify_docker.sh up || exit 1
-	@bash scripts/setup.sh || exit 1
+	@bash scripts/setup.sh $@ || exit 1
 	@sudo ./scripts/modify_dns.sh up $$MINIKUBE_DOMAIN || exit 1
 	@bash scripts/tls.sh up $$MINIKUBE_DOMAIN || exit 1
 	@kubectl apply -f dns/ingress/

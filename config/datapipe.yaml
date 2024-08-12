@@ -1,0 +1,11 @@
+---
+driver: vmware
+kubev: v1.28.3
+cni: cilium
+resources:
+  cpu: 4
+  ram: 8192
+  disk: 20480
+configs:
+  WantUpdateNotification: false
+  insecure-registry: "0.0.0.0/0"

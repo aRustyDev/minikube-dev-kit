@@ -2,11 +2,12 @@
 
 ## Minikube
 
-- [ ] implement for virtualbox driver
+- [x] implement for virtualbox driver
 - [ ] flesh out vmware driver config options
-- [ ] Add config.json/yaml to define minikube hardware requirements for each target (datapipe, passbolt, sigstore, etc)
+- [x] Add config.json/yaml to define minikube hardware requirements for each target (datapipe, passbolt, sigstore, etc)
 - [x] Pass domain to tls.sh & modify_dns.sh
 - [ ] Add arguments to rebuild target to enable rebuilding TARGET
+- [ ] Try hooking the fingerprint scanner to AuthN for SUDO usage
 
 ## Datapipe
 
@@ -17,11 +18,12 @@
 ## DNS
 
 - [ ] Try swapping NGINX ingress for Traefik ingress
+- [ ] Implement method to add only needed DNS entries to `/etc/hosts`
 
 ## TLS
 
-- [ ] Add CA Cert before creating TLS certs, then sign w/ it to avoid "self-signed" scenario.
-- [ ] Add CA Cert to local trust store
+- [X] Add CA Cert before creating TLS certs, then sign w/ it to avoid "self-signed" scenario.
+- [X] Add CA Cert to local trust store
 - [ ] Add Cert-Manager to deployment
 - [ ] Add Vault access
 - [ ] Implement Linkerd2
@@ -46,3 +48,4 @@ Search [github](https://github.com/search?q=path%3A.pre-commit-hooks.yaml+langua
 - [ ] `helm/values/*.yaml` opa rule validation
 - [ ] `helm/xx-*.yaml` Helmfile syntax validation
 - [ ] `helm/xx-*.yaml` opa rule validation
+- [ ] Implement `cosign` for image signing
