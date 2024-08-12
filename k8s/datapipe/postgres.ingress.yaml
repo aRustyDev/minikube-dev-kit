@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: postgres-ingress
+  namespace: datapipe
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: pgsql.db.pi3.mk
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: postgresql
+                port:
+                  number: 5432
+  tls:
+  - secretName: minikube-tls
+    hosts:
+      - pgsql.db.pi3.mk
