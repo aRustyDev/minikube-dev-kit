@@ -13,7 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CONTRIBUTING guidelines
 - ingresses for `datapipe` target
 
-<!-- ### Changed -->
+### Changed
+
+- CONTRIBUTING guidelines; added TLDR section, and Getting Started section.
 
 <!-- ### Removed -->
 
