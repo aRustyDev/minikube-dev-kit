@@ -1,0 +1,49 @@
+repositories:
+- name: nats
+  url: https://nats-io.github.io/k8s/helm/charts/
+
+# Add new components here (e.g. whatever charts you want installed)
+releases:
+- name: nats
+  namespace: nats-io
+  createNamespace: true
+  chart: nats/nats
+  version: 1.2.2
+  values:
+    - ./values/nats.yaml
+- name: controller
+  namespace: nats-io
+  createNamespace: true
+  chart: nats/nack
+  version: 0.26.0
+  values:
+    - ./values/nack.yaml
+# - name: operator
+#   namespace: nats-io
+#   createNamespace: true
+#   chart: nats/nats-operator
+#   version: 0.8.3
+#   values:
+#     - ./values/operator.yaml
+# - name: monitor
+#   namespace: jetstream
+#   createNamespace: true
+#   chart: nats/surveyor
+#   version: 0.17.0
+#   values:
+#     - ./values/monitor.yaml
+# - name: accounts
+#   namespace: jetstream
+#   createNamespace: true
+#   chart: nats/nats-account-server
+#   values:
+#     - ./values/accounts.yaml
+# - name: streamer
+#   namespace: jetstream
+#   createNamespace: true
+#   chart: nats/stan
+#   version: 0.8.3
+#   values:
+#     - ./values/operator.yaml
+#   set:
+#     - stan.nats.url: nats://my-nats:4222

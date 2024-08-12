@@ -5,6 +5,8 @@ SECRET_PATH="secrets/data"
 ACTION="$1"
 DOMAIN="$2"
 NAMESPACE="$3"
+CREATE_CA="$4"
+CREATE_CERT="$5"
 
 # Quit script if up/down not specified
 if [ "$ACTION" == "" ]; then
@@ -124,7 +126,7 @@ EOF
         --key=$SECRET_PATH/minikube.key \
         --cert=$SECRET_PATH/minikube.crt \
         -o yaml \
-        --dry-run=client > secrets/$NAMESPACE-tls.yaml
+        --dry-run=client > k8s/$NAMESPACE/secrets/tls.yaml
 
     # Create the Minikube TLS cert
     echo ":: Generating Kubectl Secret ('mkcert')"

@@ -14,15 +14,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `commitlint.config.js` to define configuration for `commitlint`
 - CONTRIBUTING guidelines
 - CA cert creation, to sign TLS certs; still need to figure out browser trust
+- helm values for `jetstream`/`nats`
+- make target for `jetstream`/`nats`
+- ingress & namespace for `jetstream`/`nats`
+- FORCE option for `make install`;
+- local domains for `jetstream`/`nats`
 
 ### Changed
 
 - updated TLS cert Org & OU
 - .gitignore to ignore npm dependencies for `commitlint`
+- `cleanup.sh` to include process killing of `kubectl port-forward` commands
 
 <!-- ### Removed -->
 
-<!-- ### Fixed -->
+### Fixed
+
+- `make install` target; was broken before this
 
 ## [0.2.0] - 2024-08-07
 
