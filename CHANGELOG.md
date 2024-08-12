@@ -10,16 +10,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `sigstore` target in makefile.
-- CONTRIBUTING guidelines
+
+<!-- ### Changed -->
+
+<!-- ### Removed -->
+
+<!-- ### Fixed -->
+
+## [0.3.1] - 2024-08-11
+
+### Added
+
 - ingresses for `datapipe` target
 
 ### Changed
 
 - CONTRIBUTING guidelines; added TLDR section, and Getting Started section.
-
-<!-- ### Removed -->
-
-<!-- ### Fixed -->
 
 ## [0.3.0] - 2024-08-11
 
