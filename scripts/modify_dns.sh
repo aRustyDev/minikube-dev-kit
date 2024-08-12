@@ -42,6 +42,9 @@ $(minikube ip)    spark.$DOMAIN
 $(minikube ip)    metadata.$DOMAIN
 $(minikube ip)    passbolt.$DOMAIN
 $(minikube ip)    api.passbolt.$DOMAIN
+$(minikube ip)    nats.$DOMAIN
+$(minikube ip)    monitor.nats.$DOMAIN
+$(minikube ip)    ws.nats.$DOMAIN
 EOF
     mkdir -p /etc/resolver
     cp dns/resolvr.conf /etc/resolver/minikube

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 BREWS=("kubectl" "docker-machine-driver-vmware" "docker-compose" "cilium-cli" "hubble" "linkerd" "helm" "zsh-completions " "zsh-autocomplete " "docker-credential-helper " "docker-credential-helper-ecr " "zsh-git-prompt " "terminal-notifier" "int128/kubelogin/kubelogin")
-ARCH=$(if [ "${uname -m}" == "x86_64" ],"amd64","arm64")
+ARCH=$(echo $1 | tr -d '"')
+FORCE=${2:-'false'}
 
 brew_install () {
     brew update && brew upgrade
@@ -13,27 +14,27 @@ brew_install () {
 }
 
 install_docker(){
-	wget "https://desktop.docker.com/mac/main/$(ARCH)/Docker.dmg?utm_source=docker&utm_medium=webreferral&utm_campaign=docs-driven-download-mac-$(ARCH)"
-	sudo hdiutil attach Docker.dmg
-	sudo /Volumes/Docker/Docker.app/Contents/MacOS/install --accept-license
-	sudo hdiutil detach /Volumes/Docker
-	echo "docker: INSTALLED"
+	if ! command -v docker >/dev/null 2>&1 ; then
+		wget -q "https://desktop.docker.com/mac/main/$ARCH/Docker.dmg"
+		sudo hdiutil attach Docker.dmg
+		sudo /Volumes/Docker/Docker.app/Contents/MacOS/install --accept-license
+		sudo hdiutil detach /Volumes/Docker
+		echo "docker: INSTALLED"
+	fi
 }
 
 install_minikube(){
 	echo "Installing MiniKube"
-	B4PATH=$PATH
-	curl -LO "https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-$(ARCH)"
-	sudo install minikube-darwin-$(ARCH) /usr/local/bin/minikube
+	curl --silent -LO "https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-$ARCH"
+	sudo install "minikube-darwin-$ARCH" /usr/local/bin/minikube
+	rm "minikube-darwin-$ARCH"
 
 	# Reset PATH since minikubes installer binary weridly puts /opt/google-cloud-sdk/bin at the front
-	sed '|^\s*export\s+PATH.*|d' ~/.zshrc
-	sed '|^\s*export\s+PATH.*|d' ~/.bashrc
-	echo "export PATH=$B4PATH:/opt/google-cloud-sdk/bin" >> ~/.zshrc
-	export PATH="$B4PATH:/opt/google-cloud-sdk/bin"
-	echo "export PATH=$B4PATH:/opt/google-cloud-sdk/bin" >> ~/.bashrc
-	export PATH="$B4PATH:/opt/google-cloud-sdk/bin"
-	source ~/.zshrc
+	sed -i '' -e 's|^\s*export\s+PATH.*||g' ~/.zshrc
+	sed -i '' -e 's|^\s*export\s+PATH.*||g' ~/.bashrc
+	export PATH="$(echo "$PATH" | sed -e 's|^/opt/google-cloud-sdk/bin:||g'):/opt/google-cloud-sdk/bin"
+	echo "export PATH=\"$PATH:/opt/google-cloud-sdk/bin\"" >> ~/.zshrc
+	echo "export PATH=\"$PATH:/opt/google-cloud-sdk/bin\"" >> ~/.bashrc
 	source ~/.bashrc
 }
 
@@ -72,33 +73,48 @@ add_helm_repos () {
 	helm repo update
 }
 
-install_prereqs(){
+prereqs(){
 	echo "---[Pre-requisites]---"
 	(curl --fail -s https://git.va.th.ten >/dev/null && echo " [X] : vpn-access") || (echo " [ ] : vpn-access\n     ERROR: Can't reach TEN, make sure you're on the VPN" && exit 1)
 
 	echo "---[Required Tools]---"
     # Install MiniKube
-    if [ command -v minikube 2> /dev/null ]; then
-        echo "minikube: INSTALLED"
+	# If Minikube is installed && FORCE is not true, then skip installation
+    if command -v minikube >/dev/null 2>&1 && [ "$FORCE" != "true" ] ; then
+		echo " [x] : minikube"
     else
-        install_minikube()
+		if [ "$FORCE" != "true" ] ; then
+			echo "minikube: NOT INSTALLED"
+		fi
+		echo "Installing MiniKube"
+        install_minikube > ./logs/install.log
     fi
     # Install Homebrew
-    if [ command -v brew 2> /dev/null ]; then
-        echo "homebrew: INSTALLED"
+	# If Homebrew is installed && FORCE is not true, then skip installation
+    if command -v brew >/dev/null 2>&1 && [ "$FORCE" != "true" ] ; then
+		echo " [x] : homebrew"
     else
-        install_homebrew()
+		if [ "$FORCE" != "true" ] ; then
+			echo "homebrew: NOT INSTALLED"
+		fi
+		echo "Installing Homebrew (Can take a while, ~1-5mins)"
+        install_homebrew >> ./logs/install.log
     fi
     # Install Docker
-    if [ command -v docker 2> /dev/null ]; then
-        echo "docker: INSTALLED"
+	# If Docker is installed && FORCE is not true, then skip installation
+    if command -v docker >/dev/null 2>&1 && [ "$FORCE" != "true" ] ; then
+		echo " [x] : docker"
     else
-        install_docker()
+		if [ "$FORCE" != "true" ] ; then
+			echo "docker: NOT INSTALLED"
+		fi
+		echo "Installing Docker"
+        install_docker >> ./logs/install.log
     fi
-    brew_install()
-	add_helm_repos()
+    # brew_install >> ./logs/install.log 2>&1
+	# add_helm_repos >> ./logs/install.log 2>&1
 	chmod o-r ~/.kube/config
 	chmod g-r ~/.kube/config
 }
 
-install_prereqs()
+prereqs
