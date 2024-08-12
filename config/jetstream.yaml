@@ -1,0 +1,36 @@
+---
+driver: vmware # [virtualbox, vmware, parallels, hyperkit, qemu2, docker, podman, ssh]
+kubev: v1.28.3
+cni: default # Currently, only cilium is supported
+namespace: nats-io
+resources:
+  cpu: 2
+  ram: 2048
+  disk: 4096
+configs:
+  # --- NOT CURRENTLY IMPLEMENTED ---
+  # insecure-registry: "0.0.0.0/0"
+  # WantUpdateNotification: false
+  # WantBetaUpdateNotification
+  # ReminderWaitPeriodInHours
+  # WantNoneDriverWarning
+  # WantVirtualBoxDriverWarning
+  # host-only-cidr
+  # kubernetes-version
+  # iso-url
+  # profile
+  # bootstrapper
+  # hyperv-virtual-switch
+  # disable-driver-mounts
+  # cache
+  # EmbedCerts
+  # native-ssh
+  # rootless
+  # MaxAuditEntries
+  # container-runtime
+  # feature-gates
+ports:
+  - 4222
+  - 6222
+  - 8222
+log_dir: ./logs

@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: memphis-ingress
+  namespace: datapipe
+  labels: {}
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: memphis.pi3.mk
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: memphis
+              port:
+                number: 9000
+        - path: /metrics
+          pathType: Prefix
+          backend:
+            service:
+              name: memphis
+              port:
+                number: 8222
+        - path: /ws-live
+          pathType: Prefix
+          backend:
+            service:
+              name: memphis
+              port:
+                number: 7770
+        - path: /client
+          pathType: Prefix
+          backend:
+            service:
+              name: memphis
+              port:
+                number: 6666
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: memphis-rest-gateway
+              port:
+                number: 4444
+  tls:
+  - secretName: minikube-tls
+    hosts:
+      - memphis.pi3.mk
