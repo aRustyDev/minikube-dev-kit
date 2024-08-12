@@ -1,0 +1,43 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/component: nats
+    app.kubernetes.io/instance: nats
+    app.kubernetes.io/name: nats
+    app.kubernetes.io/version: 2.10.18
+  name: nats
+  namespace: nats-io
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: ws.nats.pi3.mk
+    http:
+      paths:
+      - path: /
+        pathType: Exact
+        backend:
+          service:
+            name: nats
+            port:
+              name: websocket
+  - host: nats.pi3.mk
+    http:
+      paths:
+      - path: /
+        pathType: Exact
+        backend:
+          service:
+            name: nats
+            port:
+              name: nats
+  - host: monitor.nats.pi3.mk
+    http:
+      paths:
+      - path: /
+        pathType: Exact
+        backend:
+          service:
+            name: nats-headless
+            port:
+              name: monitor
