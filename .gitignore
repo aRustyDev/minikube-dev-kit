@@ -1,9 +1,14 @@
 secrets/*-tls.yaml
 secrets/data/*
 !secrets/data/.gitkeep
+
 tools/memphis-producer/memphis-producer
-data/*.csv
 tools/*/data/*.csv
+tools/*/protobuf/*.pb.go
+tools/*/protobuf/*.proto
+
+data/*.csv
+
 package-lock.json
 node_modules/
 logs/*
