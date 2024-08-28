@@ -3,7 +3,9 @@ secrets/data/*
 !secrets/data/.gitkeep
 tools/memphis-producer/memphis-producer
 data/*.csv
+tools/*/data/*.csv
 package-lock.json
 node_modules/
 logs/*
 !.gitkeep
+nohup.out
