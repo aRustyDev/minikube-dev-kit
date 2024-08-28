@@ -1,23 +1,43 @@
 syntax = "proto3";
-package tutorial;
 
-message Ual_log {
+package main;
+
+// option go_package = "github.com/arustydev/memphis-producer/protobuf";
+
+enum OperationType {
+    CREATE = 0;
+    DELETE = 1;
+    ADD = 2;
+    UPDATE = 3;
+    ASSIGN = 4;
+    UNASSIGN = 5;
+    NULL = 6;
+};
+
+enum Category {
+    UserManagement = 0;
+    GroupManagement = 1;
+    ApplicationManagement = 2;
+    RoleManagement = 3;
+    DirectoryManagement = 4;
+    Authentication = 5;
+    Authorization = 6;
+    PolicyManagement = 7;
+    ResourceManagement = 8;
+    Policy = 9;
+};
+
+enum Result {
+    SUCCESS = 0;
+    FAILURE = 1;
+};
+
+message UalLog {
     string activity_display_name = 1;
     string additional_details = 2;
     string app_display_name = 3;
     string app_id = 4;
-    enum category {
-        UserManagement = 0;
-        GroupManagement = 1;
-        ApplicationManagement = 2;
-        RoleManagement = 3;
-        DirectoryManagement = 4;
-        Authentication = 5;
-        Authorization = 6;
-        PolicyManagement = 7;
-        ResourceManagement = 8;
-        Policy = 9;
-    };
+    Category category = 5;
     string correlation_id = 6;
     string id = 7;
     string ip_address = 8;
@@ -34,19 +54,8 @@ message Ual_log {
     //     Conditional Access = 8;
     //     Application Proxy = 9;
     // };
-    enum operation_type {
-        CREATE = 0;
-        DELETE = 1;
-        ADD = 2;
-        UPDATE = 3;
-        ASSIGN = 4;
-        UNASSIGN = 5;
-        NULL = 6;
-    };
-    enum result {
-        SUCCESS = 0;
-        FAILURE = 1;
-    };
+    OperationType operation_type = 10;
+    Result result = 11;
     string result_reason = 12;
     string service_principal_id = 13;
     string service_principal_name = 14;
