@@ -30,7 +30,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-    conn, err := memphis.Connect("memphis.bespin.local", "go_producer", memphis.Password("Go-P@55word"), memphis.AccountId(1))
+    conn, err := memphis.Connect("memphis.datapipe.svc.cluster.local", "go_producer", memphis.Password("Go-P@55word"), memphis.AccountId(1))
     if err != nil {
 		log.Fatal(err)
     }
