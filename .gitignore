@@ -1,7 +1,10 @@
 secrets/*-tls.yaml
 secrets/data/*
 !secrets/data/.gitkeep
+ca.crt
+ca.key
 
+tools/memphis-consumer/transforms
 tools/memphis-producer/memphis-producer
 tools/*/data/*.csv
 tools/*/protobuf/*.pb.go
