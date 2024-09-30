@@ -1,4 +1,5 @@
 secrets/*-tls.yaml
+secrets/vault-secret.yaml
 secrets/data/*
 !secrets/data/.gitkeep
 ca.crt
